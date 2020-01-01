@@ -1,4 +1,4 @@
-INTERNAL_IPS = ('127.0.0.1', )
+INTERNAL_IPS = ('127.0.0.1',)
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
 APPEND_SLASH = True
 TIME_ZONE = 'UTC'
@@ -10,6 +10,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.admin',
+    'django.contrib.messages',
     'django_coverage',
     'encrypted_model_fields',
     'testapp',
@@ -24,7 +25,24 @@ DATABASES = {
     }
 }
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 )
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': False,
+        'OPTIONS': {
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]

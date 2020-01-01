@@ -1,33 +1,13 @@
-#sudo: true
-#before_install:
-#  - sudo apt-get update -qq
-#  - sudo apt-get install -qq build-essential gettext python-dev zlib1g-dev libpq-dev xvfb
-#  - sudo apt-get install -qq libtiff4-dev libjpeg8-dev libfreetype6-dev liblcms1-dev libwebp-dev
-#  - sudo apt-get install -qq graphviz-dev python-setuptools python3-dev python-virtualenv python-pip
-#  - sudo apt-get install -qq firefox automake libtool libreadline6 libreadline6-dev libreadline-dev
-#  - sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev wget curl llvm
-#language: python
-#cache:
-#  pip
-#install:
-#  pip install -r dev-requirements.txt
-#python:
-#  - "2.7"
-#  - "3.5"
-#  - "3.6"
-#script:
-#  tox
-
 sudo: true
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq build-essential gettext python-dev zlib1g-dev libpq-dev xvfb
-  - sudo apt-get install -qq libtiff4-dev libjpeg8-dev libfreetype6-dev liblcms1-dev libwebp-dev
+  - sudo apt-get install -qq libtiff5-dev libjpeg8-dev libfreetype6-dev liblcms2-dev libwebp-dev
   - sudo apt-get install -qq graphviz-dev python-setuptools python3-dev python-virtualenv python-pip
   - sudo apt-get install -qq firefox automake libtool libreadline6 libreadline6-dev libreadline-dev
   - sudo apt-get install -qq libsqlite3-dev libxml2 libxml2-dev libssl-dev libbz2-dev wget curl llvm
+  - sudo apt-get install -qq sqlite3
 language: python
-services: sqlite
 cache:
     directories:
       - $HOME/.cache/pip
@@ -35,32 +15,22 @@ before_cache:
     - rm -f $HOME/.cache/pip/log/debug.log
 matrix:
     include:
-      - python: 2.7
-        env: TOX_ENV=py27-django19
-      - python: 2.7
-        env: TOX_ENV=py27-django110
-      - python: 2.7
-        env: TOX_ENV=py27-django111
-      - python: 3.5
-        env: TOX_ENV=py35-django19
-      - python: 3.5
-        env: TOX_ENV=py35-django110
-      - python: 3.5
-        env: TOX_ENV=py35-django111
-      - python: 3.5
-        env: TOX_ENV=py35-django20
       - python: 3.6
-        env: TOX_ENV=py36-django19
+        env: TOX_ENV=py36-django2
       - python: 3.6
-        env: TOX_ENV=py36-django110
-      - python: 3.6
-        env: TOX_ENV=py36-django111
-      - python: 3.6
-        env: TOX_ENV=py36-django20
+        env: TOX_ENV=py36-django3
+      - python: 3.7
+        env: TOX_ENV=py37-django2
+      - python: 3.7
+        env: TOX_ENV=py37-django3
+      - python: 3.8
+        env: TOX_ENV=py38-django2
+      - python: 3.8
+        env: TOX_ENV=py38-django3
+
 
 script: tox -e $TOX_ENV
 
 install:
     - pip install pip setuptools wheel -U
-    - pip install -r dev-requirements.txt
-    - pip install tox
+    - pip install -r requirements/dev.txt
