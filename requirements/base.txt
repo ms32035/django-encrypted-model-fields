@@ -1,4 +1,4 @@
 setuptools
-cryptography==2.3
+cryptography>=2.4.0
 Django>=1.9.13
 six>=1.11.0

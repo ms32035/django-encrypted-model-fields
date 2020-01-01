@@ -1,5 +1,7 @@
 django-encrypted-model-field Changelog
 ---------------------------------------
+- 0.6.0 - Drop Django 1.x and Python 2.x support
+
 - 0.5.8 - Move to GITLAB repository
 
 - 0.5.7 - rearrange requirements and update dependencies
